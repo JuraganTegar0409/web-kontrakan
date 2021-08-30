@@ -14,8 +14,8 @@
           <div class="col-lg-8 col-7">  
             <nav aria-label="breadcrumb" class="d-md-inline-block ml-md-4">
               <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                <li class="breadcrumb-item"><a href="/homepage_admin"><i class="fas fa-home"></i></a></li>
-                <li class="breadcrumb-item"><a href="/homepage_admin">Dashboards</a></li> 
+                <li class="breadcrumb-item"><a href="{{route("dashboard.admin")}}"><i class="fas fa-home"></i></a></li>
+                <li class="breadcrumb-item"><a href="{{route("dashboard.admin")}}">Dashboard</a></li> 
               </ol>
             </nav>
           </div> 

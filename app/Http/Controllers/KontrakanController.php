@@ -39,10 +39,8 @@ class KontrakanController extends Controller
     }
 
 
-    public function store(Request $request, Kontrakan $kontrakan)
-    {
-
-       
+    public function store(Request $request)
+    {  
         $messages = [
             'required' => ':Attribute Wajib Diisi / Tidak Boleh Kosong!!!',
             'min' => ':Attribute Harus Diisi Minimal :min Karakter!!!',
@@ -68,17 +66,17 @@ class KontrakanController extends Controller
         );
              Kontrakan::create($request->except("foto_kontrakan") + ["foto_kontrakan" => $filename]);
        
-        return redirect()->route("kontrakan.index")->with('status', 'Data Kontrakan Berhasil di Tambahkan!!!');
+        return redirect()->route("dashboard.kontrakan.index")->with('status', 'Data Kontrakan Berhasil di Tambahkan!!!');
        }
      
     public function show(Kontrakan $kontrakan)
     { 
-        return view('dashboard/kontrakan/show', compact('kontrakan'));
+        return view('dashboard.kontrakan.show', compact('kontrakan'));
     }
     
     public function edit(Kontrakan $kontrakan)
     { 
-        return view('/dashboard/kontrakan/edit', compact('kontrakan'));
+        return view('dashboard.kontrakan.edit', compact('kontrakan'));
     }
 
     /**
@@ -93,9 +91,9 @@ class KontrakanController extends Controller
     {
         
         $messages = [
-            'required' => ':Attribute Wajib Diisi / Tidak Boleh Kosong!!!',
-            'min' => ':Attribute Data Harus Diisi Minimal :min Karakter!!!',
-            'max' => ':Attribute Data Harus Diisi Maksimal :max Karakter!!!',
+            'required' => ':attribute wajib diisi / tidak boleh kosong!!!',
+            'min' => ':attribute data harus diisi minimal :min karakter!!!',
+            'max' => ':attribute data harus diisi maksimal :max karakter!!!',
         ];
 
         $request->validate([
@@ -123,17 +121,11 @@ class KontrakanController extends Controller
 
         // lebih bagus pakai redirect()->route("nama route"), alasannya supaya kalau ada perubahan url route di file web.php
         // kita ga perlu capek-capek ngubah di semua file, tinggal panggil nama routenya aja
-        return redirect()->route("kontrakan.index")->with('status', 'Data Kontrakan Berhasil Di Edit!!!');
+        return redirect()->route("dashboard.kontrakan.index")->with('status', 'Data Kontrakan Berhasil Di Edit!');
     }
 
-    public function destroy($id) {
-        $kontrakan = Kontrakan::findOrFail($id);
-        $validasi = $kontrakan->delete();
-        if($validasi) :
-        return redirect()->route("kontrakan.index")->with('status', 'Data Kontrakan Berhasil Di Hapus!!!');
-        endif;    
+    public function destroy(Kontrakan $kontrakan) {
+        $kontrakan->delete();
+        return redirect()->route("dashboard.kontrakan.index")->with('status', 'Data Kontrakan Berhasil Di Hapus!');
     }
-
-  
-
 }

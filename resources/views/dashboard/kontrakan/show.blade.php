@@ -15,8 +15,8 @@
               <nav aria-label="breadcrumb" class="d-md-inline-block ml-md-4">
                 <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                   <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                  <li class="breadcrumb-item"><a href="/homepage_admin">Dashboard</a></li>
-                  <li class="breadcrumb-item"><a href="/dashboard/kontrakan">Kelola Kontrakan</a></li>
+                  <li class="breadcrumb-item"><a href="{{route("dashboard.admin")}}">Dashboard</a></li>
+                  <li class="breadcrumb-item"><a href="{{route("dashboard.kontrakan.index")}}">Kelola Kontrakan</a></li>
                   <li class="breadcrumb-item " aria-current="page">Detail Kontrakan</li>
                 </ol>
               </nav>

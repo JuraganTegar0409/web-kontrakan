@@ -63,25 +63,18 @@ class PenghuniController extends Controller
             $penghuni = Penghuni::create($request->except(["foto_ktp", "foto_surat_nikah", "foto_kk"]));
 
             // Upload File
-            if($request->hasFile("foto_ktp") && $request->hasFile("foto_kk")) {
+            if($request->hasFile("foto_ktp")) {
                 $fotoKtp = $request->file("foto_ktp")->getClientOriginalName();
-                $fotoKK = $request->file("foto_kk")->getClientOriginalName();
 
                 $request->file("foto_ktp")->storeAs("assets/upload/penghuni/foto_ktp/",
                         $fotoKtp,
                         "public"
                 );
 
-                $request->file("foto_kk")->storeAs("assets/upload/penghuni/foto_kk/",
-                        $fotoKK,
-                        "public"
-                );
-
-                $penghuni->images()->createMany([
-                    ["image_name" => $fotoKtp, "type" => "ktp"],
-                    ["image_name" => $fotoKK, "type" => "kk"]
-                ]);
-            } else if($request->hasFile("foto_surat_nikah")) {
+                $penghuni->images()->create(["image_name" => $fotoKtp, "type" => "ktp"]);
+            } 
+            
+            if($request->hasFile("foto_surat_nikah")) {
                 $fotoSuratNikah = $request->file("foto_surat_nikah")->getClientOriginalName();
                 $request->file("foto_surat_nikah")->storeAs("assets/upload/penghuni/foto_surat_nikah/",
                         $fotoSuratNikah,
@@ -89,6 +82,15 @@ class PenghuniController extends Controller
                 );
 
                 $penghuni->images()->create(["image_name" => $fotoSuratNikah, "type" => "surat_nikah"]);
+            } 
+            
+            if($request->hasFile("foto_kk")) {
+                $fotoKK = $request->file("foto_kk")->getClientOriginalName();
+                $request->file("foto_kk")->storeAs("assets/upload/penghuni/foto_kk/",
+                        $fotoKK,
+                        "public"
+                );
+                $penghuni->images()->create(["image_name" => $fotoKK, "type" => "kk"]);
             }
 
         });

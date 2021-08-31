@@ -33,7 +33,6 @@ class PenghuniController extends Controller
     
     public function store(Request $request)
     {
-        // dd($request->all());
         $messages = [
             "required" => ":attribute wajib diisi!",
             "min" => ":attribute harus diisi minimal :min karakter!",
@@ -55,11 +54,11 @@ class PenghuniController extends Controller
                 "required",
                 Rule::in(["Kawin", "Belum Kawin"])
             ],    
-            "foto_ktp" => "required",  
+            "foto_ktp" => "nullable",  
             "foto_surat_nikah" => "required_if:status_penghuni,Kawin",  
-            "foto_kk" => "required"  
+            "foto_kk" => "required_if:status_penghuni,Kawin"  
         ], $messages);
-   
+        
         DB::transaction(function() use ($request) {
             $penghuni = Penghuni::create($request->except(["foto_ktp", "foto_surat_nikah", "foto_kk"]));
 
@@ -93,6 +92,7 @@ class PenghuniController extends Controller
             }
 
         });
+        
         return redirect()->route("dashboard.penghuni.index")->with("status", "Data Penghuni Berhasil di Tambahkan!");
     }
     

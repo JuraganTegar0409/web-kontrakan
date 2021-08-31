@@ -8,8 +8,6 @@
     <meta name="author" content="Creative Tim">
     <title>@yield('title')</title>
 
-
-
     <!-- dataTables bootstrap -->
     <link rel="stylesheet" href=" {{ asset('assets/dataTables/bootstrap.min.css') }}" type="text/css">
     <link rel="stylesheet" href=" {{ asset('assets/dataTables/dataTables.bootstrap4.min.css') }}" type="text/css">
@@ -50,7 +48,7 @@
                     <!-- Nav items -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" href="/homepage_admin">
+                            <a class="nav-link active" href="{{route("dashboard.admin")}}">
                                 <i class="ni ni-tv-2 text-primary"></i>
                                 <span class="nav-link-text">Dashboard</span>
                             </a>
@@ -175,7 +173,7 @@
         @yield('container')
 
         <!-- Footer -->
-        <footer class="___class_+?66___">
+        <footer class="">
             <div class="row align-items-center justify-content-lg-between">
                 <div class="col-lg-12">
                     <div class="copyright text-center  text-lg-center">

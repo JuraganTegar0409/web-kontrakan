@@ -9,7 +9,7 @@ body {
 .table-wrapper {
     min-width: 1000px;
     background: #fff;
-    padding: 33px;
+    padding: 25px;
     box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }
 .table-title {

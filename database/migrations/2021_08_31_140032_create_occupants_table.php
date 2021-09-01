@@ -20,7 +20,7 @@ class CreateOccupantsTable extends Migration
             $table->integer('umur_penghuni'); 
             $table->enum('jenis_kelamin_penghuni', ['Laki-Laki', 'Perempuan']);
             $table->enum('status_penghuni', ['Kawin', 'Belum Kawin']);
-            $table->timestamps(); 
+            $table->timestamps();
         });
     }
 

@@ -15,8 +15,8 @@
               <nav aria-label="breadcrumb" class="d-md-inline-block ml-md-4">
                 <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                   <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                  <li class="breadcrumb-item"><a href="{{route("dashboard.admin")}}">Dashboard</a></li>
-                  <li class="breadcrumb-item"><a href="{{route("dashboard.kontrakan.index")}}">Kelola Kontrakan</a></li>
+                  <li class="breadcrumb-item"><a href="">Dashboard</a></li>
+                  <li class="breadcrumb-item"><a href=" ">Kelola Kontrakan</a></li>
                   <li class="breadcrumb-item " aria-current="page">Detail Kontrakan</li>
                 </ol>
               </nav>
@@ -75,7 +75,7 @@
                                  <div class="col-md-12">
                                    <div class="form-group"> <label for="form_name">Foto Kontrakan :    {{ $kontrakan->foto_kontrakan }} </label>
                                    <div class="form-group">
-                                    <img src="{{ Storage::url('assets/upload/' . $kontrakan->foto_kontrakan) }}" alt="" width="325px" height="200px" style="vertical-align: middle; margin-left:50px;  ">  
+                                    <img src="{{ asset('/storage/assets/upload/kontrakan/' . $kontrakan->foto_kontrakan) }}" alt="" width="325px" height="200px" style="vertical-align: middle; margin-left:50px;  ">  
                                    </div>
                                   </div>  
                                 </div>

@@ -14,9 +14,9 @@
                     <div class="col-lg-6 col-8">
                         <nav aria-label="breadcrumb" class="d-md-inline-block ml-md-4">
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('dashboard.admin') }}">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('dashboard.penghuni.index') }}">Kelola
+                                <li class="breadcrumb-item"><a href="/homepage_admin"><i class="fas fa-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="/homepage_admin">Dashboard</a></li>
+                                <li class="breadcrumb-item"><a href="/dashboard/penghuni">Kelola
                                         Penghuni</a></li>
                                 <li class="breadcrumb-item " aria-current="page">Detail Penghuni</li>
                             </ol>
@@ -43,9 +43,9 @@
                                             <div class="controls">
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <div class="form-group"> <label for="form_name">Nama :</label>
+                                                        <div class="form-group"> <label for="form_name">Nama Penghuni :</label>
                                                             <input id="form_name" type="text" name="nama_penghuni"
-                                                                class="form-control" value="{{$penghuni->nama_penghuni}}">
+                                                                class="form-control" value="{{$penghuni->nama_penghuni}}" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -53,8 +53,8 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group"> <label for="form_email">Umur :</label>
-                                                            <input id="form_email" type="number" name="umur_penghuni"
-                                                                class="form-control" value="{{$penghuni->umur_penghuni}}">
+                                                            <input id="form_email" type="text" name="umur_penghuni"
+                                                                class="form-control" value="{{$penghuni->umur_penghuni}} Tahun" readonly> 
                                                         </div>
                                                     </div>
 
@@ -68,18 +68,34 @@
 
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <div class="form-group"> <label for="form_name">No KTP :</label>
+                                                        <div class="form-group"> <label for="form_name">Jenis Kelamin :</label>
                                                             <input id="form_name" type="text" name="foto_ktp"
-                                                                class="form-control" value="912309128903">
+                                                                class="form-control" value="{{ $penghuni->jenis_kelamin_penghuni}}">
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <div class="form-group"> <label for="form_name">Foto Penghuni
-                                                                :</label> <img src="../../assets/img/brand/blue.png" alt=""
-                                                                width="300px" height="200px"> </div>
+                                                        <div class="form-group"> <label for="form_name">Status Penghuni :</label>
+                                                            <input id="form_name" type="text" name="foto_ktp"
+                                                                class="form-control" value="{{ $penghuni->status_penghuni}}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group"> <label for="form_name">Foto KTP
+                                                                : {{ $penghuni->foto_penghuni }} </label>
+                                                            
+                                                                <div class="form-group">
+                                                            
+                                                                <img src="{{ asset('/storage/assets/upload/penghuni/foto_ktp/'.$penghuni->foto_ktp) }}" alt=""
+                                                                width="300px" height="200px">
+                                                                </div>
+                                                            
+                                                            </div>
                                                     </div>
                                                 </div>
 
@@ -89,11 +105,15 @@
                                                             <input id="form_name" type="text" name="status_penghuni"
                                                                 class="form-control" value="{{$penghuni->status_penghuni}}">
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-12"> <input type="submit"
-                                                            class="btn btn-success btn-send pt-2 btn-block "
-                                                            value="Kembali"> </div>
+                                                    </div> 
                                                 </div>
+                                                <div class="row" >
+                                                        <div class="col-md-12">
+                                                        <a href="/dashboard/penghuni"  class="btn btn-success btn-send pt-2 btn-block " style="font-size: 20px;" >
+                                                            <span>Kembali</span>
+                                                        </a>  
+                                                        </div> 
+                                                    </div> 
                                             </div>
                                         </form>
                                     </div>

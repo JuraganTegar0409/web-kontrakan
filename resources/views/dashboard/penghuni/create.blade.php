@@ -14,10 +14,10 @@
                     <div class="col-lg-6 col-7">
                         <nav aria-label="breadcrumb" class="d-md-inline-block ml-md-4">
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                                <li class="breadcrumb-item"><a href="{{ route('dashboard.admin') }}"><i
+                                <li class="breadcrumb-item"><a href="/homepage_admin"><i
                                             class="fas fa-home"></i></a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('dashboard.admin') }}">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('dashboard.penghuni.index') }}">Kelola
+                                <li class="breadcrumb-item"><a href="/homepage_admin">Dashboard</a></li>
+                                <li class="breadcrumb-item"><a href="/dashboard/penghuni">Kelola
                                         Penghuni</a></li>
                                 <li class="breadcrumb-item " aria-current="page">Tambah Penghuni</li>
                             </ol>
@@ -32,6 +32,10 @@
             <div class="row">
                 <!-- disini isi konten -->
                 <div class="container-xl">
+ 
+                    <div class="wrapper">
+                    @include('sweetalert::alert')
+                    </div>
 
                     <!-- Form CRUD -->
                     <div class="row ">
@@ -43,7 +47,7 @@
                                             Tambah Data penghuni</h1>
                                         <br />
                                         <form id="contact-form" role="form" method="post"
-                                            action="{{ route('dashboard.penghuni.store') }}"
+                                            action="{{ route('penghuni.store') }}"
                                             enctype="multipart/form-data">
                                             @csrf
                                             <div class="controls">
@@ -65,11 +69,13 @@
 
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group"> <label for="form_need">Agama penghuni
+                                                        <div class="form-group"> 
+                                                            <label for="form_need">Agama penghuni
                                                                 <span class="text-red">*</span>
-                                                                :</label> <select id="form_need" name="agama_penghuni"
+                                                                :</label> 
+                                                                <select id="form_need" name="agama_penghuni"
                                                                 class="form-control @error('agama_penghuni') is-invalid @enderror">
-                                                                <option disabled>Pilih Agama Penghuni</option>
+                                                                <option  value="">Pilih Agama Penghuni</option>
                                                                 <option value="Islam">Islam</option>
                                                                 <option value="Protestan">Protestan</option>
                                                                 <option value="Katolik">Katolik</option>
@@ -109,6 +115,7 @@
                                                                     <label class="form-check-label"
                                                                         for="inlineRadio1">Laki-laki</label>
                                                                 </div>
+
                                                                 <div class="form-check form-check-inline">
                                                                     <input
                                                                         class="form-check-input @error('jenis_kelamin_penghuni') is-invalid @enderror"
@@ -116,15 +123,16 @@
                                                                         id="inlineRadio2" value="Perempuan">
                                                                     <label class="form-check-label"
                                                                         for="inlineRadio2">Perempuan</label>
-                                                                    @error('jenis_kelamin_penghuni')
-                                                                        <span id="validationServer03Feedback"
-                                                                            class="invalid-feedback">{{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                        </div>
-                                                    </div>
-
-
+                                                                        
+                                                                        @error('jenis_kelamin_penghuni')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                        @enderror
+                                                              </div>
+                                                                
+                                                        </div> 
+                                                    </div> 
+                                                </div> 
+  
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="form-group">
@@ -142,17 +150,17 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
-
+ 
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="form-group">
-                                                                <label for="form_name">Foto KTP :</label>
+                                                                <label for="form_name">Foto KTP 
+                                                                <span class="text-red">*</span>    
+                                                                :</label>
                                                                 <div class="col-sm-10">
                                                                     <img src="{{ asset('assets/img/foto_kosong/img_kosong.jpg') }}"
-                                                                        class="img-thumbnail img-preview">
-                                                                    <label class="custom-file" for="Fotokontrakan">
-                                                                        <h3> </h3>
+                                                                        class="img-thumbnail img-preview2">
+                                                                    <label class="custom-file" for="Fotoktp"> 
                                                                     </label>
                                                                 </div>
 
@@ -161,12 +169,12 @@
                                                                         <input type="file"
                                                                             class="custom-file-input @error('foto_ktp') is-invalid @enderror"
                                                                             id="foto_ktp" name="foto_ktp"
-                                                                            onchange="previewImg()"
+                                                                            onchange="previewImg2()"
                                                                             value="{{ asset('assets/img/foto_kosong/img_kosong.jpg') }} ">
+                                                                            @error('foto_ktp')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
                                                                     </div>
-                                                                    @error('foto_ktp')
-                                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                                    @enderror
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -175,11 +183,13 @@
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="form-group">
-                                                                <label for="form_name">Foto Surat Nikah :</label>
+                                                                <label for="form_name">Foto Surat Nikah 
+                                                                <span class="text-red">*( Wajib Di Isi Bila Sudah Menikah )</span>    
+                                                                :</label>
                                                                 <div class="col-sm-10">
                                                                     <img src="{{ asset('assets/img/foto_kosong/img_kosong.jpg') }}"
-                                                                        class="img-thumbnail img-preview">
-                                                                    <label class="custom-file" for="Fotokontrakan">
+                                                                        class="img-thumbnail img-preview3">
+                                                                    <label class="custom-file" for="Fotosurat_nikah">
                                                                         <h3> </h3>
                                                                     </label>
                                                                 </div>
@@ -187,14 +197,14 @@
                                                                 <div class="col-sm-12">
                                                                     <div class="custom-file">
                                                                         <input type="file"
-                                                                            class="custom-file-input @error('foto_surat_nikah') is-invalid @enderror"
+                                                                            class="custom-file-input @error('foto_surat_nikah') is-invalid @enderror"  
                                                                             id="foto_surat_nikah" name="foto_surat_nikah"
-                                                                            onchange="previewImg()"
+                                                                            onchange="previewImg3()"
                                                                             value="{{ asset('assets/img/foto_kosong/img_kosong.jpg') }}">
+                                                                            @error('foto_surat_nikah')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
                                                                     </div>
-                                                                    @error('foto_surat_nikah')
-                                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                                    @enderror
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -203,11 +213,13 @@
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="form-group">
-                                                                <label for="form_name">Foto KK :</label>
+                                                                <label for="form_name">Foto KK 
+                                                                <span class="text-red">*</span> 
+                                                                    :</label>
                                                                 <div class="col-sm-10">
                                                                     <img src="{{ asset('assets/img/foto_kosong/img_kosong.jpg') }}"
-                                                                        class="img-thumbnail img-preview">
-                                                                    <label class="custom-file" for="Fotokontrakan">
+                                                                        class="img-thumbnail img-preview4">
+                                                                    <label class="custom-file" for="Fotokk">
                                                                         <h3> </h3>
                                                                     </label>
                                                                 </div>
@@ -217,12 +229,12 @@
                                                                         <input type="file"
                                                                             class="custom-file-input @error('foto_kk') is-invalid @enderror"
                                                                             id="foto_kk" name="foto_kk"
-                                                                            onchange="previewImg()"
+                                                                            onchange="previewImg4()"
                                                                             value="{{ asset('assets/img/foto_kosong/img_kosong.jpg') }}">
+                                                                            @error('foto_kk')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
                                                                     </div>
-                                                                    @error('foto_kk')
-                                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                                    @enderror
                                                                 </div>
                                                             </div>
                                                         </div>

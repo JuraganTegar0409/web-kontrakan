@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Kontrakan; 
 use Illuminate\Support\Facades\Storage;
+use Alert;
 // use Illuminate\Support\Facades\DB;
 
 class KontrakanController extends Controller
@@ -48,6 +49,10 @@ class KontrakanController extends Controller
             'unique' => ':Attribute Sudah Ada, Mohon Isi Dengan Nama Lain!!!',  
         ];
 
+        $alertErrror = [
+            Alert::error('Proses Tambah Data Gagal ', 'Data Kontrakan Gagal Ditambahkan,Mohon Cek Kembali Data Yang Wajib Diisi!!')
+        ];
+
         $validasi = $request->validate([
             'nama_kontrakan' => 'required|unique:rents|min:5|max:100',
             'tipe_kontrakan' => 'required', 
@@ -56,8 +61,8 @@ class KontrakanController extends Controller
             'foto_kontrakan' => 'required', 
             'status_kontrakan' => 'required',
             'alamat_kontrakan' => 'required'
-        ], $messages);
-
+        ], $messages, $alertError);
+        
        // Upload File
         $filename = $request->file("foto_kontrakan")->getClientOriginalName();
         $path = $request->file("foto_kontrakan")->storeAs("assets/upload/kontrakan",
@@ -66,7 +71,8 @@ class KontrakanController extends Controller
         );
              Kontrakan::create($request->except("foto_kontrakan") + ["foto_kontrakan" => $filename]);
        
-        return redirect()->route("dashboard.kontrakan.index")->with('status', 'Data Kontrakan Berhasil di Tambahkan!!!');
+        Alert::success('Proses Tambah Data Berhasil', 'Berhasil Tambah Data Kontrakan');     
+        return redirect()->route("kontrakan.index")->with('status', 'Tambah Data Kontrakan Berhasil');
        }
      
     public function show(Kontrakan $kontrakan)
@@ -96,6 +102,10 @@ class KontrakanController extends Controller
             'max' => ':attribute data harus diisi maksimal :max karakter!!!',
         ];
 
+        $alertError = [
+            Alert::error('Proses Edit Data Gagal ', 'Data Kontrakan Gagal Diedit, Mohon Cek Kembali Data Yang Wajib Diisi!!')
+        ];
+
         $request->validate([
             'nama_kontrakan' => 'required|min:5|max:20',
             'tipe_kontrakan' => 'required|min:1', 
@@ -104,12 +114,12 @@ class KontrakanController extends Controller
             'foto_kontrakan' => 'required', 
             'status_kontrakan' => 'required',
             'alamat_kontrakan' => 'required|max:200'
-        ], $messages);
+        ], $messages, $alertError);
 
         //cek apakah ada file foto kontrakan, kalau ada maka upload dan update fotonya di db
         if ($request->hasFile("foto_kontrakan")) {
             $file = $request->file("foto_kontrakan");
-            $file->storeAs("assets/upload", 
+            $file->storeAs("assets/upload/kontrakan", 
                 $file->getClientOriginalName(), 
                 "public"
             );
@@ -121,11 +131,13 @@ class KontrakanController extends Controller
 
         // lebih bagus pakai redirect()->route("nama route"), alasannya supaya kalau ada perubahan url route di file web.php
         // kita ga perlu capek-capek ngubah di semua file, tinggal panggil nama routenya aja
-        return redirect()->route("dashboard.kontrakan.index")->with('status', 'Data Kontrakan Berhasil Di Edit!');
+        Alert::success('Proses Edit Data Berhasil', 'Berhasil Edit Data Kontrakan');
+        return redirect()->route("kontrakan.index")->with('status', 'Edit Data Kontrakan Berhasil');
     }
-
+    
     public function destroy(Kontrakan $kontrakan) {
         $kontrakan->delete();
-        return redirect()->route("dashboard.kontrakan.index")->with('status', 'Data Kontrakan Berhasil Di Hapus!');
+        Alert::success('Proses Hapus Data Berhasil', 'Berhasil Hapus Data Kontrakan');
+        return redirect()->route("kontrakan.index")->with('status', 'Data Kontrakan Berhasil Di Hapus!');
     }
 }

@@ -22,7 +22,7 @@ class CreateRentsTable extends Migration
             $table->string('foto_kontrakan');
             $table->enum('status_kontrakan', ['Kosong', 'Penuh', 'Booked', 'Terjual']);
             $table->text('alamat_kontrakan');
-            $table->timestamps(); 
+            $table->timestamps();
         });
     }
 

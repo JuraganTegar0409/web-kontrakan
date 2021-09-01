@@ -49,7 +49,7 @@ class KontrakanController extends Controller
             'unique' => ':Attribute Sudah Ada, Mohon Isi Dengan Nama Lain!!!',  
         ];
 
-        $alertErrror = [
+        $alertError = [
             Alert::error('Proses Tambah Data Gagal ', 'Data Kontrakan Gagal Ditambahkan,Mohon Cek Kembali Data Yang Wajib Diisi!!')
         ];
 

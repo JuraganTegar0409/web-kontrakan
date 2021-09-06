@@ -2,7 +2,7 @@
 @extends('layout/main')
 
 <!-- ini adalah title dari halaman Dashboard Kontrakan -->
-@section('title', 'Dashboard Kontrakan')
+@section('title', '6 September 2021')
 
 <!-- ini adalah isi konten dari halaman Dashboard Kontrakan -->
 @section('container')

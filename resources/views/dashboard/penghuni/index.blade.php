@@ -2,7 +2,7 @@
 @extends('layout/main')
 
 <!-- ini adalah title dari halaman Kelola Kontrakan -->
-@section('title', '1 September 2021')
+@section('title', '6 September 2021')
 
 <!-- ini adalah isi konten dari halaman Kelola Kontrakan -->
 @section('container')

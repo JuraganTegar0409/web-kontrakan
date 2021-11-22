@@ -1,201 +1,178 @@
-    <!-- ini adalah konten dari halaman Tambah Kontrakan -->
-    @extends('layout/main')
+<!-- ini adalah konten dari halaman Tambah Kontrakan -->
+@extends('layout.main')
 
 <!-- ini adalah title dari halaman Tambah Kontrakan -->
-@section('title', 'Edit Data Kontrakan')
-
+@section('title', 'Tambah Data Kontrakan')
+@section('header')
+    @include("includes.header", [
+    "icon" => "fas fa-hotel",
+    "breadcrumbs" => [
+    [
+    "name" => "List Kontrakan",
+    "is_active" => "",
+    "link" => "/dashboard/kontrakan"
+    ],
+    [
+    "name" => "Edit Kontrakan",
+    "is_active" => "active",
+    "link" => ""
+    ]
+    ]
+    ])
+@endsection
 <!-- ini adalah isi konten dari halaman Tambah Kontrakan -->
 @section('container')
-    <!-- Header -->
-    <div class="header bg-primary pb-6">
-        <div class="container-fluid">
-            <div class="header-body">
-                <div class="row align-items-center py-4">
-                    <div class="col-lg-6 col-7">
-                        <nav aria-label="breadcrumb" class="d-md-inline-block ml-md-4">
-                            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                                <li class="breadcrumb-item"><a href="/homepage_admin"><i class="fas fa-home"></i></a></li>
-                                <li class="breadcrumb-item"><a href="/homepage_admin">Dashboards</a></li>
-                                <li class="breadcrumb-item"><a href="/dashboard/kontrakan">Kelola Kontrakan</a></li>
-                                <li class="breadcrumb-item " aria-current="page">Edit Kontrakan</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Page content -->
-        <div class="container-fluid mt--4">
+    <div class="container-fluid mt--6">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card mt-4">
+                    <div class="card-body bg-white">
+                        <h2 class="text-center">Edit Kontrakan</h2>
+                        <form method="POST" action="{{ route('dashboard.kontrakan.update', $kontrakan->id) }}"
+                            enctype="multipart/form-data">
+                            @method("PUT")
+                            @csrf
+                            <div class="form-group">
+                                <label for="namaKontrakan">Nama Kontrakan <span class="text-danger">*</span></label>
+                                <input type="text"
+                                    class="form-control form-control-sm @error('nama_kontrakan') is-invalid @enderror"
+                                    id="namaKontrakan" value="{{ old('nama_kontrakan', $kontrakan->nama_kontrakan) }}"
+                                    name="nama_kontrakan" placeholder="Masukkan nama kontrakan">
+                                @error('nama_kontrakan')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="tipeKontrakan">Tipe Kontrakan <span class="text-danger">*</span></label>
+                                <select class="form-control form-control-sm @error('tipe_kontrakan') is-invalid @enderror"
+                                    id="tipeKontrakan" name="tipe_kontrakan">
+                                    <option disabled>Pilih Tipe Kontrakan</option>
+                                    <option value="Keluarga"
+                                        {{ old('tipe_kontrakan', $kontrakan->tipe_kontrakan) === 'Keluarga' ? 'selected' : '' }}>
+                                        Keluarga</option>
+                                    <option value="Cowo"
+                                        {{ old('tipe_kontrakan', $kontrakan->tipe_kontrakan) === 'Cowo' ? 'selected' : '' }}>
+                                        Cowo</option>
+                                    <option value="Cewe"
+                                        {{ old('tipe_kontrakan', $kontrakan->tipe_kontrakan) === 'Cewe' ? 'selected' : '' }}>
+                                        Cewe</option>
+                                </select>
+                                @error('tipe_kontrakan')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="namaKontrakan">Kapasitas Kontrakan <span class="text-danger">*</span></label>
+                                <input type="number" name="kapasitas_kontrakan"
+                                    class="form-control form-control-sm @error('kapasitas_kontrakan') is-invalid @enderror"
+                                    placeholder="Masukkan kapasitas kontrakan"
+                                    value="{{ old('kapasitas_kontrakan', $kontrakan->kapasitas_kontrakan) }}">
 
-            <div class="row">
-                <!-- disini isi konten -->
-                <div class="container-xl">
-                    
-                    <div class="wrapper">
-                    @include('sweetalert::alert')
-                    </div>
-
-                    <!-- Form CRUD -->
-                    <div class="row ">
-                        <div class="col-lg-7 mx-auto">
-                            <div class="card mt-2 mx-auto p-4 bg-light">
-                                <div class="card-body bg-white">
-                                    <div class="container">
-                                        <h1 class="text-center mb-4"><i class="ni ni-single-02 text-blue"></i> <br>
-                                            Edit Data Kontrakan</h1> 
-                                        <br /> 
-                                        <form id="contact-form" role="form" method="post"
-                                            action="{{ route('kontrakan.update', $kontrakan->id) }}"
-                                            enctype="multipart/form-data">
-                                            @method('patch')
-                                            @csrf
-                                            <div class="controls">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group"> <label for="form_name">Nama Kontrakan
-                                                                :</label> <input type="text" name="nama_kontrakan"
-                                                                class="form-control @error('nama_kontrakan') is-invalid @enderror "
-                                                                value="{{ $kontrakan->nama_kontrakan }}">
-                                                            @error('nama_kontrakan')
-                                                                <div class="invalid-feedback">{{ $message }}</div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group"> <label for="form_need">Tipe Kontrakan
-                                                                :</label> <select id="form_need" name="tipe_kontrakan"
-                                                                class="form-control @error('tipe_kontrakan') is-invalid @enderror">
-                                                                <option value="{{ $kontrakan->tipe_kontrakan }}">
-                                                                    {{ $kontrakan->tipe_kontrakan }}</option>
-                                                                <option value="Keluarga">Keluarga</option>
-                                                                <option value="Cowo">Cowo</option>
-                                                                <option value="Cewe">Cewe</option> 
-                                                            </select>
-                                                            @error('tipe_kontrakan')
-                                                                <div class="invalid-feedback">{{ $message }}</div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group"> <label for="form_email">Kapasitas :</label>
-                                                            <input type="number" name="kapasitas_kontrakan"
-                                                                class="form-control @error('kapasitas_kontrakan') is-invalid @enderror"
-                                                                placeholder="Please enter capacity *"
-                                                                value="{{ $kontrakan->kapasitas_kontrakan }}">
-                                                            @error('kapasitas_kontrakan')
-                                                                <div class="invalid-feedback">{{ $message }}</div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group"> <label for="form_name">Harga Kontrakan
-                                                                (Perbulan) : *Termasuk air & listrik</label> <input
-                                                                type="number" name="harga_kontrakan"
-                                                                class="form-control @error('harga_kontrakan') is-invalid @enderror"
-                                                                placeholder="Please enter price*"
-                                                                value="{{ $kontrakan->harga_kontrakan }}">
-                                                            @error('harga_kontrakan')
-                                                                <div class="invalid-feedback">{{ $message }}</div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label for="form_name">Foto Kontrakan :</label>
-                                                            <div class="col-sm-10">
-                                                                <img src="{{ asset('/storage/assets/upload/kontrakan/' . $kontrakan->foto_kontrakan) }}"
-                                                                    class="img-thumbnail img-preview">
-                                                                <label class="custom-file" for="Fotokontrakan">
-                                                                    <h3>{{ $kontrakan->foto_kontrakan }}</h3>
-                                                                </label>
-                                                            </div>
-
-                                                            <div class="col-sm-12">
-                                                                <div class="custom-file">
-                                                                    <input type="file" class="custom-file-input"
-                                                                        id="foto_kontrakan" name="foto_kontrakan"
-                                                                        onchange="previewImg()" value="">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-sm-12">
-                                                                <div class="custom-file">
-                                                                    <input type="hidden" class="custom-file-input"
-                                                                        id="foto_kontrakan" name="foto_kontrakan"
-                                                                        value="{{ $kontrakan->foto_kontrakan }}">
-                                                                </div>
-                                                            </div>
-
-                                                            @error('foto_kontrakan')
-                                                                <div class="invalid-feedback">{{ $message }}</div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group"> <label for="form_need">Status Kontrakan
-                                                                :</label> <select name="status_kontrakan"
-                                                                class="form-control @error('status_kontrakan') is-invalid @enderror">
-                                                                <option value="{{ $kontrakan->status_kontrakan }}">
-                                                                    {{ $kontrakan->status_kontrakan }}</option>
-                                                                <option value="Kosong">Kosong</option>
-                                                                <option value="Penuh">Penuh</option>
-                                                                <option value="Booked">Booked</option>
-                                                                <option value="Terjual">Terjual</option>
-                                                            </select>
-                                                            @error('status_kontrakan')
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-                                                
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                            <div class="form-group"> <label for="form_email">Alamat Kontrakan :</label>
-                                                                <input type="textarea" name="alamat_kontrakan"
-                                                                class="form-control @error('alamat_kontrakan') is-invalid @enderror"
-                                                                    placeholder="Please enter kontrakan address *"
-                                                                    value="{{ $kontrakan->alamat_kontrakan }}">
-                                                                @error('alamat_kontrakan')
-                                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                </div>
-
-                                                <div class="col-md-12">
-                                                    <input type="submit" class="btn btn-warning btn-send pt-2 btn-block "
-                                                        value="Edit Data">
-                                                </div>
-                                            </div>
+                                @error('kapasitas_kontrakan')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="hargaKontrakan">Harga Kontrakan
+                                    (Perbulan): Termasuk air & listrik <span class="text-danger">*</span></label>
+                                <input type="number" name="harga_kontrakan"
+                                    class="form-control form-control-sm @error('harga_kontrakan') is-invalid @enderror"
+                                    placeholder="Masukkan harga kontrakan"
+                                    value="{{ old('harga_kontrakan', $kontrakan->harga_kontrakan) }}">
+                                @error('harga_kontrakan')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <div class="row px-3">
+                                    <label for="fotoKontrakan">Foto Kontrakan :</label>
+                                    <div class="col-sm-12 px-0 text-center">
+                                        <img src="{{ Storage::url('assets/upload/kontrakan/' . $kontrakan->foto_kontrakan) }}"
+                                            class="img-thumbnail img-preview" width="300" height="300">
+                                        <label class="mt-2 d-block" for="fotoKontrakan" id="labelFotoKontrakan">
+                                            <h3>{{ $kontrakan->foto_kontrakan }}</h3>
+                                        </label>
                                     </div>
 
-                                    </form>
-                                    <div class="clearBoth"></div>
+                                    <div class="col-sm-12 px-0">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="foto_kontrakan"
+                                                value="{{ $kontrakan->foto_kontrakan }}" id="fotoKontrakan">
+                                            <label class="custom-file-label" for="customFileLang"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12 px-0 d-none">
+                                        <div class="custom-file">
+                                            <input type="hidden" class="custom-file-input" name="foto_kontrakan"
+                                                value="{{ $kontrakan->foto_kontrakan }}">
+                                        </div>
+                                    </div>
                                 </div>
+
+                                @error('foto_kontrakan')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
-                            <div>
-                            </div> <!-- /.8 -->
-                        </div> <!-- Tutup Row -->
-
-                    </div> <!-- Tutup Row Isi Konten -->
-
+                            <div class="form-group">
+                                <label for="statusKontrakan">Status Kontrakan <span class="text-danger">*</span>:</label>
+                                <select name="status_kontrakan"
+                                    class="form-control form-control-sm @error('status_kontrakan') is-invalid @enderror"
+                                    id="statusKontrakan">
+                                    <option disabled>Pilih Status Kontrakan</option>
+                                    <option value="Kosong"
+                                        {{ old('status_kontrakan', $kontrakan->status_kontrakan) === 'Kosong' ? 'selected' : '' }}>
+                                        Kosong</option>
+                                    <option value="Penuh"
+                                        {{ old('status_kontrakan', $kontrakan->status_kontrakan) === 'Penuh' ? 'selected' : '' }}>
+                                        Penuh</option>
+                                    <option value="Booked"
+                                        {{ old('status_kontrakan', $kontrakan->status_kontrakan) === 'Booked' ? 'selected' : '' }}>
+                                        Booked</option>
+                                    <option value="Terjual"
+                                        {{ old('status_kontrakan', $kontrakan->status_kontrakan) === 'Terjual' ? 'selected' : '' }}>
+                                        Terjual</option>
+                                </select>
+                                @error('status_kontrakan')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="alamatKontrakan">Alamat Kontrakan <span class="text-danger">*</span>:</label>
+                                <textarea name="alamat_kontrakan" id="alamatKontrakan" cols="10" rows="5"
+                                    class="form-control form-control-sm @error('alamat_kontrakan') is-invalid @enderror"
+                                    placeholder="Masukkan alamat">{{ old('alamat_kontrakan', $kontrakan->alamat_kontrakan) }}</textarea>
+                                @error('alamat_kontrakan')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
                 </div>
+
             </div>
-            <!-- ini adalah tutup endsection -->
-        @endsection
+        </div>
+    </div>
+@endsection
+
+@push('addon-script')
+    <!-- bagian kontrakan -->
+    <script>
+        $("#fotoKontrakan").on("change", () => {
+            const fotoKontrakan = $('#fotoKontrakan');
+            const fotoKontrakanLabel = $('#labelFotoKontrakan');
+            const imgPreview = $('.img-preview');
+
+            // buat mengganti URL nya
+            fotoKontrakanLabel.text(fotoKontrakan[0].files[0].name);
+            // ini buat mengganti preview 
+            const fileFotokontrakan = new FileReader();
+            fileFotokontrakan.readAsDataURL(fotoKontrakan[0].files[0]);
+
+            $(fileFotokontrakan).on("load", (e) => {
+                imgPreview.attr("src", e.target.result);
+            });
+        })
+    </script>
+@endpush

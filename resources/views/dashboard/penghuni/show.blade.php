@@ -43,9 +43,11 @@
                                             <div class="controls">
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <div class="form-group"> <label for="form_name">Nama Penghuni :</label>
+                                                        <div class="form-group"> <label for="form_name">Nama Penghuni
+                                                                :</label>
                                                             <input id="form_name" type="text" name="nama_penghuni"
-                                                                class="form-control" value="{{$penghuni->nama_penghuni}}" readonly>
+                                                                class="form-control"
+                                                                value="{{ $penghuni->nama_penghuni }}" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -54,32 +56,27 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group"> <label for="form_email">Umur :</label>
                                                             <input id="form_email" type="text" name="umur_penghuni"
-                                                                class="form-control" value="{{$penghuni->umur_penghuni}} Tahun" readonly> 
+                                                                class="form-control"
+                                                                value="{{ $penghuni->umur_penghuni }} Tahun" readonly>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-6">
                                                         <div class="form-group"> <label for="form_email">Agama :</label>
                                                             <input id="form_email" type="text" name="agama_penghuni"
-                                                                class="form-control" value="{{$penghuni->agama_penghuni}}">
+                                                                class="form-control"
+                                                                value="{{ $penghuni->agama_penghuni }}">
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <div class="form-group"> <label for="form_name">Jenis Kelamin :</label>
-                                                            <input id="form_name" type="text" name="foto_ktp"
-                                                                class="form-control" value="{{ $penghuni->jenis_kelamin_penghuni}}">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group"> <label for="form_name">Status Penghuni :</label>
-                                                            <input id="form_name" type="text" name="foto_ktp"
-                                                                class="form-control" value="{{ $penghuni->status_penghuni}}">
+                                                        <div class="form-group"> <label for="form_name">Jenis Kelamin
+                                                                :</label>
+                                                            <input id="form_name" type="text" name="jenis_kelamin_penghuni"
+                                                                class="form-control"
+                                                                value="{{ $penghuni->jenis_kelamin_penghuni }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -88,14 +85,14 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group"> <label for="form_name">Foto KTP
                                                                 : {{ $penghuni->foto_penghuni }} </label>
-                                                            
-                                                                <div class="form-group">
-                                                            
-                                                                <img src="{{ asset('/storage/assets/upload/penghuni/foto_ktp/'.$penghuni->foto_ktp) }}" alt=""
-                                                                width="300px" height="200px">
-                                                                </div>
-                                                            
+
+                                                            <div class="form-group">
+
+                                                                <img src="{{ Storage::url('assets/upload/penghuni/foto_ktp/' . $penghuni->images->where('type', 'ktp')->first()->image_name) }}"
+                                                                    alt="" width="300px" height="200px">
                                                             </div>
+
+                                                        </div>
                                                     </div>
                                                 </div>
 
@@ -103,17 +100,20 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group"> <label for="form_name">Status :</label>
                                                             <input id="form_name" type="text" name="status_penghuni"
-                                                                class="form-control" value="{{$penghuni->status_penghuni}}">
+                                                                class="form-control"
+                                                                value="{{ $penghuni->status_penghuni }}">
                                                         </div>
-                                                    </div> 
+                                                    </div>
                                                 </div>
-                                                <div class="row" >
-                                                        <div class="col-md-12">
-                                                        <a href="/dashboard/penghuni"  class="btn btn-success btn-send pt-2 btn-block " style="font-size: 20px;" >
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <a href="/dashboard/penghuni"
+                                                            class="btn btn-success btn-send pt-2 btn-block "
+                                                            style="font-size: 20px;">
                                                             <span>Kembali</span>
-                                                        </a>  
-                                                        </div> 
-                                                    </div> 
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>

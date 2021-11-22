@@ -6575,11 +6575,8 @@ input[type='button'].btn-block
 .pagination
 {
     display: flex;
-
     padding-left: 0;
-
     list-style: none;
-
     border-radius: .375rem;
 }
 
@@ -22941,9 +22938,9 @@ textarea[resize='horizontal']
 
     display: flex;
 
-    width: 60px;
-    height: 30px;
-    margin: 5px 2px;
+    width: 36px;
+    height: 36px;
+    margin: 0 3px;
     padding: 0;
 
     border-radius: 50% !important;
@@ -26146,6 +26143,7 @@ table.dataTable tbody > tr.selected
 .dt-buttons
 {
     padding-left: 1.5rem;
+    margin-top: 1rem;
 }
 
 .dataTables_length .form-control
@@ -26157,7 +26155,6 @@ table.dataTable tbody > tr.selected
 {
     display: inline-block;
     float: right; 
-
     padding-right: 1.5rem;
 }
 
@@ -26169,7 +26166,6 @@ table.dataTable tbody > tr.selected
 .dropzone
 {
     position: relative;
-
     display: flex;
     flex-direction: column;
 }

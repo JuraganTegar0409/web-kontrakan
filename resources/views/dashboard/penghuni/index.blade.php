@@ -1,112 +1,108 @@
 <!-- ini adalah konten dari halaman Kelola Kontrakan -->
-@extends('layout/main')
+@extends("layout.main")
 
 <!-- ini adalah title dari halaman Kelola Kontrakan -->
-@section('title', '6 September 2021')
-
+@section('title', 'Kontrakan')
+@section('header')
+    @include("includes.header", [
+    "icon" => "fas fa-users",
+    "breadcrumbs" => [
+    [
+    "name" => "List Penghuni",
+    "is_active" => "active",
+    "link" => `{{ route('dashboard.penghuni.index') }}`
+    ]
+    ],
+    "button" => ["link" => "/dashboard/penghuni/create", "name" => "Tambah Penghuni"]
+    ])
+@endsection
 <!-- ini adalah isi konten dari halaman Kelola Kontrakan -->
 @section('container')
- <!-- Header -->
- <div class="header bg-primary pb-6">
-      <div class="container-fluid">
-        <div class="header-body">
-          <div class="row align-items-center py-4">
-            <div class="col-lg-6 col-7">  
-              <nav aria-label="breadcrumb" class="d-md-inline-block ml-md-4">
-                <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                  <li class="breadcrumb-item"><a href="/homepage_admin"><i class="fas fa-home"></i></a></li>
-                  <li class="breadcrumb-item"><a href="/homepage_admin">Dashboards</a></li>
-                  <li class="breadcrumb-item " aria-current="page"><a href="/dashboard/kontrakan">Kelola Kontrakan</a></li>
-                </ol>
-              </nav>
-            </div> 
-          </div> 
-        </div>
-      </div>
-      <!-- Page content -->
-      <div class="container-fluid mt--4">
-        
-        <div class="row">
-          <!-- disini isi konten -->
-          <div class="container-xl">
-            <div class="table-responsive">
-                <div class="table-wrapper">
-                    <div class="table-title">
-                        <div class="row">
-                            <div class="col-sm-6">
-                              <h2>Kontrakan <b>Details</b>
-                              <a href="/dashboard/penghuni/create" style="margin: 10px;" class="btn btn-success"  ><i class="material-icons">&#xE147;</i> <span>Tambah Penghuni</span></a>
-                              </h2>
-                            </div> 
-                        </div> 
+    <div class="container-fluid mt--5">
+        <div class="row justify-content-center">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header bg-transparent">
+                        <h3 class="mb-0">List Penghuni</h3>
                     </div>
- 
-                    <div class="wrapper">
-                                @include('sweetalert::alert')
-                     </div>
-  
-                            <div class=" row">
-                                <div class="col-sm-5">
-                                    @if (session('status'))
-                                        <div class="alert alert-success" style="text-align: center; font-size:20px;">
-                                            {{ session('status') }}
-                                        </div>
-                                    @endif
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div class="table-wrapper">
+                                <div class="wrapper">
+                                    @include("sweetalert::alert")
                                 </div>
+
+                                {{-- <div class=" row">
+                                    <div class="col-sm-5">
+                                        @if (session('status'))
+                                            <div class="alert alert-success" style="text-align: center; font-size:20px;">
+                                                {{ session('status') }}
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div> --}}
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover table-bordered mydatatable w-100">
+                                        <thead>
+                                            <tr align="center">
+                                                <th scope="col">No.</th>
+                                                <th scope="col">Nama</th>
+                                                <th scope="col">Agama</th>
+                                                <th scope="col">Umur</th>
+                                                <th scope="col">Jenis Kelamin</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Actions </th>
+                                            </tr>
+                                        </thead>
+                                        @if (count($occupants) > 0)
+                                            @foreach ($occupants as $occupant)
+                                                <tr align="center">
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $occupant->nama_penghuni }}</td>
+                                                    <td>{{ $occupant->agama_penghuni }}</td>
+                                                    <td>{{ $occupant->umur_penghuni }}</td>
+                                                    <td>{{ $occupant->jenis_kelamin_penghuni }} </td>
+                                                    <td>{{ $occupant->status_penghuni }}</td>
+                                                    <td class="d-flex">
+                                                        <form
+                                                            action="{{ route('dashboard.penghuni.show', $occupant->id) }}">
+                                                            <button class="btn btn-primary btn-sm">
+                                                                <i class="fas fa-eye"></i></button>
+                                                        </form>
+                                                        <form
+                                                            action="{{ route('dashboard.penghuni.edit', $occupant->id) }}">
+                                                            <button class="btn btn-warning btn-sm mx-2">
+                                                                <i class="fas fa-edit"></i>
+                                                            </button>
+                                                        </form>
+                                                        <form
+                                                            action="{{ route('dashboard.penghuni.destroy', $occupant->id) }}"
+                                                            method="POST"
+                                                            onsubmit="return confirm('Yakin Hapus Data {{ $occupant->nama_penghuni }} ?')">
+                                                            @method("delete")
+                                                            @csrf
+                                                            <button class="btn btn-danger btn-sm">
+                                                                <i class="fas fa-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr align="center">
+                                                <td colspan="7">Data kosong</td>
+                                            </tr>
+                                        @endif
+                                        </tbody>
+                                    </table>
+                                </div>
+
                             </div>
-                    <div class="table-responsive">  
-                    <table class="table table-striped table-hover table-bordered mydatatable"> 
-                        <thead>
-                            <tr align="center">
-                                <th style="vertical-align: middle;">No      </th>
-                                <th style="vertical-align: middle;">ID Penghuni   </th>
-                                <th style="vertical-align: middle;">Nama Penghuni   </th>
-                                <th style="vertical-align: middle;">Agama    </th>
-                                <th style="vertical-align: middle;">Umur </th> 
-                                <th style="vertical-align: middle;">Jenis Kelamin</th>
-                                <th style="vertical-align: middle;">Status</th>
-                                <th style="vertical-align: middle;">Actions </th>
-                            </tr>
-                        </thead>  
-                          @foreach( $penghuni as $ph =>$hasil )
-                            <tr align="center">
-                                <td style="vertical-align: middle;" >{{ $ph + $penghuni->firstitem() }}</td>
-                                <td style="vertical-align: middle;" >PH{{ $hasil->id }}</td>
-                                <td style="vertical-align: middle;" >{{ $hasil->nama_penghuni }}</td>
-                                <td style="vertical-align: middle;" >{{ $hasil->agama_penghuni }}</td>
-                                <td style="vertical-align: middle;" >{{ $hasil->umur_penghuni }} Tahun</td> 
-                                <td style="vertical-align: middle;" >{{ $hasil->jenis_kelamin_penghuni }}  </td>
-                                <td style="vertical-align: middle;" >{{ $hasil->status_penghuni }}</td> 
-                                <td>
-                                     
-                                    <form action="{{ route('penghuni.show', $hasil->id)}}">
-                                      <button class="btn-primary" title="Detail Data {{ $hasil->nama_penghuni}}" data-toggle="tooltip"> 
-                                      <i class="material-icons">&#xE417;</i></button>
-                                    </form>
-                                    <br>
-                                    <br>
-                                    <form action="{{ route('penghuni.edit', $hasil->id)}}"> 
-                                      <button class="btn-warning" title="Edit Data {{ $hasil->nama_penghuni}}" data-toggle="tooltip"> 
-                                        <i class="material-icons">&#xE254;</i></button>
-                                    </form>
-                                    <br>
-                                    <br>
-                                    <form action="{{ route('penghuni.destroy', $hasil->id)}}" method="post" onsubmit="return confirm('Yakin Hapus Data {{ $hasil->nama_penghuni}} ??')">
-                                      @method('delete')  
-                                      @csrf 
-                                      <button class="btn-danger" title="Hapus Data {{ $hasil->nama_penghuni}}" data-toggle="tooltip"> 
-                                        <i class="material-icons">&#xE872;</i></button>
-                                    </form>  
-                                </td>
-                            </tr> 
-                          @endforeach
-                        </tbody>
-                    </table>
+                        </div>
                     </div>
- 
                 </div>
-            </div>  
-         </div>    
-      </div>
-      <!-- ini adalah tutup endsection -->
-      @endsection
+            </div>
+        </div>
+        @include("includes.footer")
+    </div>
+@endsection

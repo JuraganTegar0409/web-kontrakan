@@ -16,3 +16,11 @@ Route::group(["prefix" => "dashboard", "middlware" => ["auth"], "as" => "dashboa
     Route::resource("laporan", "LaporanController")->only(["index", "create"]); 
     Route::resource("log", "LogController")->only(["index", "create"]); 
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

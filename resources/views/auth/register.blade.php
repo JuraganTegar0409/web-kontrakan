@@ -13,7 +13,7 @@
     <div class="container" style="width: 450px">
         <div class="card text-white p-4" style="background: -webkit-linear-gradient(top, #29a609, #7ee80e);">
             <h3 class="text-center mb-4">Register</h4>
-                <form method="POST" action="{{ route('login') }}">
+                <form method="POST" action="{{ route('register') }}">
                     @csrf
                     <div class="text-center">
                         <img src="{{ asset('assets/img/bg-02.jpeg') }}" alt="AVATAR" class="img-fluid rounded-circle"
@@ -61,8 +61,8 @@
                         @enderror
                     </div>
                     <button type="submit" class="btn btn-primary btn-block mb-2">{{ __('Submit') }}</button>
-                    @if (Route::has('register'))
-                        <a class="text-white" href="{{ route('register') }}">
+                    @if (Route::has('login'))
+                        <a class="text-white" href="{{ route('login') }}">
                             {{ __('Sudah Punya Akun? Langsung Saja Login') }}
                         </a>
                     @endif

@@ -71,7 +71,7 @@ class PenghuniController extends Controller
                 $fotoKtp = $request->file("foto_ktp")->getClientOriginalName();
 
                 $request->file("foto_ktp")->storeAs(
-                    "assets/upload/penghuni/foto_ktp/",
+                    "assets/upload/penghuni/foto_ktp",
                     $fotoKtp,
                     "public"
                 );
@@ -82,7 +82,7 @@ class PenghuniController extends Controller
             if ($request->hasFile("foto_surat_nikah")) {
                 $fotoSuratNikah = $request->file("foto_surat_nikah")->getClientOriginalName();
                 $request->file("foto_surat_nikah")->storeAs(
-                    "assets/upload/penghuni/foto_surat_nikah/",
+                    "assets/upload/penghuni/foto_surat_nikah",
                     $fotoSuratNikah,
                     "public"
                 );
@@ -93,7 +93,7 @@ class PenghuniController extends Controller
             if ($request->hasFile("foto_kk")) {
                 $fotoKK = $request->file("foto_kk")->getClientOriginalName();
                 $request->file("foto_kk")->storeAs(
-                    "assets/upload/penghuni/foto_kk/",
+                    "assets/upload/penghuni/foto_kk",
                     $fotoKK,
                     "public"
                 );

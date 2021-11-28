@@ -85,64 +85,28 @@
         // });
     </script>
 
-    <!-- bagian penghuni -->
     <script>
-        function previewImg2() {
-            const foto_ktp = document.querySelector('#foto_ktp');
-            const foto_ktpLabel = document.querySelector('.custom-file');
-            const imgPreview2 = document.querySelector('.img-preview2');
+        const previewImg = (target, imgPreviewPlace, labelPlace = ".custom-file") => {
+            const input = document.querySelector(target)
+            if (input.files && input.files[0]) {
+                // buat mengganti URL nya
+                $(labelPlace).text(input.files[0].name);
 
-            // buat mengganti URL nya
-            foto_ktpLabel.textContent = foto_ktp.files[0].name;
+                // ini buat mengganti preview 
+                const reader = new FileReader();
+                reader.readAsDataURL(input.files[0]);
+                reader.onload = (e) => $(imgPreviewPlace).attr("src", e.target.result);
 
-            // ini buat mengganti preview 
-            const fileFotoktp = new FileReader();
-            fileFotoktp.readAsDataURL(foto_ktp.files[0]);
-
-            fileFotoktp.onload = function(e) {
-                imgPreview2.src = e.target.result;
+                $(imgPreviewPlace).removeClass("d-none");
+                $(labelPlace).removeClass("d-none");
             }
         }
+
+        $("#fotoKTP").on("change", () => previewImg("#fotoKTP", "#previewKTPImg", "#previewKTPLabel"));
+        $("#fotoKK").on("change", () => previewImg("#fotoKK", "#previewKKImg", "#previewKKLabel"));
+        $("#fotoSuratNikah").on("change", () => previewImg("#fotoSuratNikah", "#previewSuratNikahImg",
+            "#previewSuratNikahLabel"));
     </script>
-    <script>
-        function previewImg3() {
-            const foto_surat_nikah = document.querySelector('#foto_surat_nikah');
-            const foto_surat_nikahLabel = document.querySelector('.custom-file');
-            const imgPreview3 = document.querySelector('.img-preview3');
-
-            // buat mengganti URL nya
-            foto_surat_nikahLabel.textContent = foto_surat_nikah.files[0].name;
-
-            // ini buat mengganti preview 
-            const fileFotosurat_nikah = new FileReader();
-            fileFotosurat_nikah.readAsDataURL(foto_surat_nikah.files[0]);
-
-            fileFotosurat_nikah.onload = function(e) {
-                imgPreview3.src = e.target.result;
-            }
-        }
-    </script>
-
-    <script>
-        function previewImg4() {
-            const foto_kk = document.querySelector('#foto_kk');
-            const foto_kkLabel = document.querySelector('.custom-file');
-            const imgPreview4 = document.querySelector('.img-preview4');
-
-            // buat mengganti URL nya
-            foto_kkLabel.textContent = foto_kk.files[0].name;
-
-            // ini buat mengganti preview 
-            const fileFotokk = new FileReader();
-            fileFotokk.readAsDataURL(foto_kk.files[0]);
-
-            fileFotokk.onload = function(e) {
-                imgPreview4.src = e.target.result;
-            }
-        }
-    </script>
-
-
 </body>
 
 </html>

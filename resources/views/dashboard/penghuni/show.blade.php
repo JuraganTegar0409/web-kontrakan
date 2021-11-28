@@ -87,7 +87,6 @@
                                                                 : {{ $penghuni->foto_penghuni }} </label>
 
                                                             <div class="form-group">
-
                                                                 <img src="{{ Storage::url('assets/upload/penghuni/foto_ktp/' . $penghuni->images->where('type', 'ktp')->first()->image_name) }}"
                                                                     alt="" width="300px" height="200px">
                                                             </div>

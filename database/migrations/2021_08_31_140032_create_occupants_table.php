@@ -19,7 +19,8 @@ class CreateOccupantsTable extends Migration
             $table->enum('agama_penghuni', ['Islam', 'Protestan', 'Katolik', 'Buddha', 'Khonghucu']);
             $table->integer('umur_penghuni'); 
             $table->enum('jenis_kelamin_penghuni', ['Laki-Laki', 'Perempuan']);
-            $table->enum('status_penghuni', ['Kawin', 'Belum Kawin']);
+            $table->enum('status_penghuni', ["Pegawai Swasta", "Karyawan Pabrik", "Guru", "Ojek Online", "Lain Sebagainya"]);
+            $table->string('foto_ktp');
             $table->timestamps();
         });
     }

@@ -35,11 +35,21 @@
                         <i class="ni ni-zoom-split-in"></i>
                     </a>
                 </li>
+                
+                <!-- TIME DATE DAY -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        <i class="ni ni-bell-55"></i>
+                    <a class="nav-link" href="" role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false"> 
+                                <span class="mb-0 text-sm font-weight-bold">{{date("l")}}, {{date("d")}}-{{date("F")}}-{{date("Y")}} </span> 
                     </a>
+                </li>
+
+                <!--ICON BELL  -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <i class="ni ni-bell-55"></i>
+                        </a>
                     <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
                         <!-- Dropdown header -->
                         <div class="px-3 py-3">
@@ -153,7 +163,7 @@
                         <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">View all</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown">
+                <!-- <li class="nav-item dropdown">
                     <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
                         <i class="ni ni-ungroup"></i>
@@ -199,7 +209,7 @@
                         </div>
                     </div>
                 </li>
-            </ul>
+            </ul> -->
             <ul class="navbar-nav align-items-center ml-auto ml-md-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"

@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Tegar Dwi Septiadi">
     <title>@yield('title')</title>
-
+    
     @stack("prepend-style")
     @include('includes.style')
     @stack("addon-style")
@@ -103,9 +103,9 @@
         }
 
         $("#fotoKTP").on("change", () => previewImg("#fotoKTP", "#previewKTPImg", "#previewKTPLabel"));
-        $("#fotoKK").on("change", () => previewImg("#fotoKK", "#previewKKImg", "#previewKKLabel"));
-        $("#fotoSuratNikah").on("change", () => previewImg("#fotoSuratNikah", "#previewSuratNikahImg",
-            "#previewSuratNikahLabel"));
+        // $("#fotoKK").on("change", () => previewImg("#fotoKK", "#previewKKImg", "#previewKKLabel"));
+        // $("#fotoSuratNikah").on("change", () => previewImg("#fotoSuratNikah", "#previewSuratNikahImg",
+        //     "#previewSuratNikahLabel"));
     </script>
 </body>
 

@@ -57,41 +57,44 @@
                                         @if (count($occupants) > 0)
                                             @foreach ($occupants as $occupant)
                                                 <tr align="center">
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $occupant->nama_penghuni }}</td>
-                                                    <td>{{ $occupant->agama_penghuni }}</td>
-                                                    <td>{{ $occupant->umur_penghuni }}</td>
-                                                    <td>{{ $occupant->jenis_kelamin_penghuni }} </td>
-                                                    <td>{{ $occupant->status_penghuni }}</td>
-                                                    <td class="d-flex">
+                                                    <td  style="vertical-align:middle;">{{ $loop->iteration }}</td>
+                                                    <td  style="vertical-align:middle;">{{ $occupant->nama_penghuni }}</td>
+                                                    <td  style="vertical-align:middle;">{{ $occupant->agama_penghuni }}</td>
+                                                    <td  style="vertical-align:middle;">{{ $occupant->umur_penghuni }}</td>
+                                                    <td  style="vertical-align:middle;">{{ $occupant->jenis_kelamin_penghuni }} </td>
+                                                    <td  style="vertical-align:middle;">{{ $occupant->status_penghuni }}</td>
+                                                    <td  >
                                                         <form
                                                             action="{{ route('dashboard.penghuni.show', $occupant->id) }}">
                                                             <button class="btn btn-primary btn-sm">
                                                                 <i class="fas fa-eye"></i></button>
                                                         </form>
+                                                        <br>
                                                         <form
-                                                            action="{{ route('dashboard.penghuni.edit', $occupant->id) }}">
-                                                            <button class="btn btn-warning btn-sm mx-2">
-                                                                <i class="fas fa-edit"></i>
-                                                            </button>
-                                                        </form>
-                                                        <form
-                                                            action="{{ route('dashboard.penghuni.destroy', $occupant->id) }}"
-                                                            method="POST"
-                                                            onsubmit="return confirm('Yakin Hapus Data {{ $occupant->nama_penghuni }} ?')">
-                                                            @method("delete")
-                                                            @csrf
-                                                            <button class="btn btn-danger btn-sm">
+                                                        action="{{ route('dashboard.penghuni.edit', $occupant->id) }}">
+                                                        <button class="btn btn-warning btn-sm mx-2">
+                                                            <i class="fas fa-edit"></i>
+                                                        </button>
+                                                    </form>
+                                                    <br>
+                                                    <form
+                                                    action="{{ route('dashboard.penghuni.destroy', $occupant->id) }}"
+                                                    method="POST"
+                                                    onsubmit="return confirm('Yakin Hapus Data {{ $occupant->nama_penghuni }} ?')">
+                                                    @method("delete")
+                                                    @csrf
+                                                    <button class="btn btn-danger btn-sm">
                                                                 <i class="fas fa-trash"></i>
                                                             </button>
                                                         </form>
                                                     </td>
                                                 </tr>
-                                            @endforeach
+                                                
+                                                @endforeach
                                         @else
-                                            <tr align="center">
-                                                <td colspan="7">Data kosong</td>
-                                            </tr>
+                                        <tr align="center">
+                                            <td colspan="7">Data kosong</td>
+                                        </tr>
                                         @endif
                                         </tbody>
                                     </table>

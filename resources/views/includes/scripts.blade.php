@@ -11,6 +11,11 @@
 <script src="{{ asset('assets/vendor/chart.js/dist/Chart.extension.js') }}"></script>
 <!-- Argon JS -->
 <script src="{{ asset('assets/js/argon.js?v=1.2.0') }}"></script>
+<!-- Sweet Alert JS -->
+<script src="{{ asset('assets/js/sweetalert.js') }}"></script>
+<script src="{{ asset('assets/js/sweetalertdelete.js') }}"></script>
+<!-- Sweet Alert CSS -->
+<script src="{{ asset('assets/css/sweetalert/deletealert.css') }}"></script>
 
 <!-- Script dataTables -->
 <script src="{{ asset('assets/plugin/DataTables-1.10.24/datatables.min.js') }}"></script>

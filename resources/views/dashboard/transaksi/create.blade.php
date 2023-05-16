@@ -1,108 +1,158 @@
-<!-- ini adalah konten dari halaman Kelola Transaksi -->
+<!-- ini adalah konten dari halaman Tambah Transaksi -->
 @extends('layout/main')
 
-<!-- ini adalah title dari halaman Kelola Transaksi -->
-@section('title', 'Kelola Transaksi')
-
-<!-- ini adalah isi konten dari halaman Kelola Transaksi -->
+<!-- ini adalah title dari halaman Tambah Transaksi -->
+@section('title', 'Tambah Data Transaksi')
+@section('header')
+    @include("includes.header", [
+    "icon" => "fas fa-users",
+    "breadcrumbs" => [
+    [
+    "name" => "List Transaksi",
+    "is_active" => "",
+    "link" => "/dashboard/Transaksi"
+    ],
+    [
+    "name" => "Tambah Transaksi",
+    "is_active" => "active",
+    "link" => ""
+    ]
+    ]
+    ])
+@endsection
+<!-- ini adalah isi konten dari halaman Tambah Kontrakan -->
 @section('container')
- <!-- Header -->
- <div class="header bg-primary pb-6">
-      <div class="container-fluid">
-        <div class="header-body">
-          <div class="row align-items-center py-4">
-            <div class="col-lg-6 col-7">  
-              <nav aria-label="breadcrumb" class="d-md-inline-block ml-md-4">
-                <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                  <li class="breadcrumb-item"><a href="/"><i class="fas fa-home"></i></a></li>
-                  <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                  <li class="breadcrumb-item"><a href="/dashboard/transaksi">Kelola Transaksi</a></li>
-                  <li class="breadcrumb-item " aria-current="page">Tambah Transaksi</li>
-                </ol>
-              </nav>
-            </div> 
-          </div>
-          <!-- Card stats -->
-          <div class="row">
-             
-             
-             
-             
-          </div>
-        </div>
-      </div>
-    <!-- Page content -->
-    <div class="container-fluid mt--4">
-       
-      <div class="row">
-         <!-- disini isi konten -->
-         <div class="container-xl"> 
-              
-           <!-- Form CRUD -->
-            <div class="row ">
-              <div class="col-lg-7 mx-auto">
-                <div class="card mt-2 mx-auto p-4 bg-light">
-                  <div class="card-body bg-white">
-                    <div class="container">
-                          <h2 class="text-center mb-4"><i class="ni ni-single-02 text-blue"></i> <br>
-                             Tambah Data Transaksi</h2>
-                          <form id="contact-form" role="form">
-                              <div class="controls">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group"> <label for="form_name">ID Transaksi :</label> <input id="form_name" type="text" name="name" class="form-control" placeholder="Please enter your firstname *" > </div>
-                                        </div>    
-                                    
+    <div class="container-fluid mt--6">
+        <div class="row">
+            <div class="wrapper">
+                @include('sweetalert::alert')
+            </div>
+
+            <div class="col-lg-7 mx-auto">
+                <div class="card mx-auto">
+                    <div class="card-body bg-white">
+                        <h1 class="text-center mb-4">
+                            <i class="fas fa-users d-block"></i>
+                            Tambah Data Transaksi
+                        </h1>
+                        <form id="contact-form" role="form" method="POST" action="{{ route('dashboard.transaksi.store') }}"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="name">
+                                            Nama Penghuni<span class="text-red">*</span>:
+                                        </label>
+                                        <select id="form_need" name="occupant_id"
+                                            class="form-control @error('occupant_id') is-invalid @enderror">
+                                            <option value="">Pilih Nama Penghuni</option>
+                                            @foreach ($dtPenghuni as $itema)
+                                            <option value="{{ $itema->id}}">{{$itema->nama_penghuni}}</option>
+                                             @endforeach
+                                        </select>
+                                        @error('occupant_id')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group"> <label for="form_name">Nama :</label> <input id="form_name" type="text" name="name" class="form-control" placeholder="Please enter your firstname *" > </div>
-                                        </div>    
+                                </div>
+                               
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="name">
+                                            Nama Kontrakan<span class="text-red">*</span>:
+                                        </label>
+                                        <select id="form_need" name="rent_id"
+                                            class="form-control @error('rent_id') is-invalid @enderror">
+                                            <option value="">Pilih Nama Kontrakan</option>
+                                            @foreach ($dtKontrakan as $itemb)
+                                            <option value="{{ $itemb->id}}">{{$itemb->nama_kontrakan}}</option>
+                                             @endforeach
+                                        </select>
+                                        @error('rent_id')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
-
-                                    <div class="row">
-                                      <div class="col-md-6">
-                                        <div class="form-group"> <label for="form_email">Tanggal Bayar :</label> <input id="form_email" type="date" name="email" class="form-control" placeholder="Please enter your age *"> </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group"> <label for="form_need">Status :</label> <select id="form_need" name="need" class="form-control">
-                                                    <option value="" selected disabled>Belum Lunas</option>
-                                                    <option>Lunas</option> 
-                                                </select> </div>
-                                        </div>
-                                      </div>
-
-                                      <div class="row">
-                                          <div class="col-md-12">
-                                              <div class="form-group"> <label for="form_name">Nominal Bayar :</label> <input id="form_name" type="number" name="name" class="form-control" placeholder="Please enter your Nominal Bayar *" > </div>
-                                          </div>  
-                                      </div>
-                                      
-                                      <!-- <div class="row">
-                                          <div class="col-md-12">
-                                              <div class="form-group"> <label for="form_name">Foto Transaksi :</label> <input id="form_name" type="file" name="name" class="form-control"> </div>
-                                          </div>  
-                                      </div> -->
-
-                                    <div class="row">
-                                        <!-- <div class="col-md-12">
-                                            <div class="form-group"> <label for="form_message">Message *</label> <textarea id="form_message" name="message" class="form-control" placeholder="Write your message here." rows="4" required="required" data-error="Please, leave us a message."></textarea> </div>
-                                        </div>
-                                         -->
-                                        <div class="col-md-12"> <input type="submit" class="btn btn-success btn-send pt-2 btn-block " value="Tambah Data"> </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="umur">
+                                            Nominal Transaksi <span class="text-red">*</span>:
+                                        </label>
+                                        <input type="number" name="nominal"
+                                            class="form-control @error('nominal') is-invalid @enderror"
+                                            placeholder="Masukkan Nominal Transaksi" value="{{ old('nominal') }}" id="nominal">
+                                        @error('nominal')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
-                          </form>
-                     </div>
-                  </div>
-                <div>
-              </div> <!-- /.8 -->
-            </div> <!-- Tutup Row -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="form_need">
+                                            Status Transaksi <span class="text-red">*</span>:
+                                        </label>
+                                        <select id="form_need" name="status_transaksi"
+                                            class="form-control @error('status_transaksi') is-invalid @enderror">
+                                            <option value="">Pilih Status Transaksi</option>
+                                            <option value="Lunas">Lunas</option>
+                                            <option value="Belum Lunas">Belum Lunas</option> 
+                                        </select>
+                                        @error('status_transaksi')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
 
-      </div>    <!-- Tutup Row Isi Konten -->
-         
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="umur">
+                                            Tanggal Transaksi <span class="text-red">*</span>:
+                                        </label>
+                                        <input type="date" name="tgl_transaksi"
+                                            class="form-control @error('tgl_transaksi') is-invalid @enderror"
+                                            placeholder="Masukkan Tanggal Transaksi" value="{{ old('tgl_transaksi') }}" id="tgl_transaksi">
+                                        @error('tgl_transaksi')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+ 
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="col-sm-12">
+                                            Foto Transaksi <span class="text-red">*</span>:
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <img src="" class="img-thumbnail d-none" id="previewTRANSAKSIImg">
+                                            <label class="custom-file d-none" for="fotoTRANSAKSI" id="previewTRANSAKSILabel">
+                                            </label>
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                            <div class="custom-file">
+                                                <input type="file"
+                                                    class="custom-file-input @error('foto_transaksi') is-invalid @enderror"
+                                                    id="fotoKTP" name="foto_transaksi">
+                                                <label class="custom-file-label" for="customFileLang">Select file</label>
+                                                @error('foto_transaksi')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <input type="submit" class="btn btn-success pt-2 btn-block" value="Tambah Data">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-<!-- ini adalah tutup endsection -->
 @endsection

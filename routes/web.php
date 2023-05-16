@@ -12,7 +12,10 @@ Route::group(["prefix" => "dashboard", "middleware" => ["auth"], "as" => "dashbo
     Route::view('/', "index")->name("admin");
     Route::resource("kontrakan", "KontrakanController"); 
     Route::resource("penghuni", "PenghuniController"); 
-    Route::resource("transaksi", "TransaksiController")->only(["index", "create"]); 
-    Route::resource("laporan", "LaporanController")->only(["index", "create"]); 
-    Route::resource("log", "LogController")->only(["index", "create"]); 
+    Route::resource("transaksi", "TransaksiController"); 
+    Route::resource("laporan", "LaporanController"); 
+    Route::get("print", "LaporanController@cetak")->name('print'); 
+    Route::get("halamanPrint/{tglawal}/{tglakhir}", "LaporanController@cetakLaporanPertanggal")->name("halamanPrint"); 
+    Route::resource("log", "LogController");  
+    // Route::get("showTransaksi", "LogController@showLogTransaksi")->name('showTransaksi'); 
 });

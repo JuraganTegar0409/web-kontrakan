@@ -84,10 +84,10 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-group"> <label for="form_name">Foto KTP
-                                                                : {{ $penghuni->foto_penghuni }} </label>
+                                                                : {{ $penghuni->foto_ktp }} </label>
 
                                                             <div class="form-group">
-                                                                <img src="{{ Storage::url('assets/upload/penghuni/foto_ktp/' . $penghuni->images->where('type', 'ktp')->first()->image_name) }}"
+                                                                <img src="/assets/upload/identitas_penghuni/foto_ktp/{{$penghuni->foto_ktp}}"
                                                                     alt="" width="300px" height="200px">
                                                             </div>
 

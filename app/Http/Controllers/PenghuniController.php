@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Penghuni;
+use App\Models\Penghuni;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule; 
 use Alert;
 
 class PenghuniController extends Controller
@@ -57,56 +56,28 @@ class PenghuniController extends Controller
             ],
             "status_penghuni" => [
                 "required",
-                Rule::in(["Kawin", "Belum Kawin"])
+                Rule::in(["Pegawai Swasta", "Karyawan Pabrik", "Guru", "Ojek Online", "Lain Sebagainya"])
             ],
-            "foto_ktp" => "nullable",
-            "foto_surat_nikah" => "required_if:status_penghuni,Kawin",
-            "foto_kk" => "required"
+            "foto_ktp" => "required"
         ], $messages, $alertError);
 
-        DB::transaction(function () use ($request) {
-            $penghuni = Penghuni::create($request->except(["foto_ktp", "foto_surat_nikah", "foto_kk"]));
-            // Upload File
-            if ($request->hasFile("foto_ktp")) {
-                $fotoKtp = $request->file("foto_ktp")->getClientOriginalName();
-
-                $request->file("foto_ktp")->storeAs(
-                    "assets/upload/penghuni/foto_ktp",
-                    $fotoKtp,
-                    "public"
-                );
-
-                $penghuni->images()->create(["image_name" => $fotoKtp, "type" => "ktp"]);
-            }
-
-            if ($request->hasFile("foto_surat_nikah")) {
-                $fotoSuratNikah = $request->file("foto_surat_nikah")->getClientOriginalName();
-                $request->file("foto_surat_nikah")->storeAs(
-                    "assets/upload/penghuni/foto_surat_nikah",
-                    $fotoSuratNikah,
-                    "public"
-                );
-
-                $penghuni->images()->create(["image_name" => $fotoSuratNikah, "type" => "surat_nikah"]);
-            }
-
-            if ($request->hasFile("foto_kk")) {
-                $fotoKK = $request->file("foto_kk")->getClientOriginalName();
-                $request->file("foto_kk")->storeAs(
-                    "assets/upload/penghuni/foto_kk",
-                    $fotoKK,
-                    "public"
-                );
-                $penghuni->images()->create(["image_name" => $fotoKK, "type" => "kk"]);
-            }
-        });
-
-        Alert::success('Proses Tambah Data Berhasil', 'Data Penghuni Berhasil Ditambahkan');
-        return redirect()->route("dashboard.penghuni.index")->with('status', 'Tambah Data Penghuni Berhasil');
-    }
-
-
-    public function edit(Request $request, Penghuni $penghuni)
+        
+        // Upload File
+        if ($request->hasFile("foto_ktp")) {
+            $fotoKtp = $request->file("foto_ktp")->getClientOriginalName();
+            $request->foto_ktp->move(public_path('/assets/upload/identitas_penghuni/foto_ktp'), $fotoKtp);
+            Penghuni::create($request->except("foto_ktp") + ["foto_ktp" => $fotoKtp]);
+            // $fotoKtp->images()->create(["image_name" => $fotoKtp, "type" => "ktp"]);
+        }
+        
+            Alert::success('Proses Tambah Data Berhasil', 'JANJI HARUS KE GLORY YA DECK :)');
+            return redirect()->route("dashboard.penghuni.index")->with('status', 'Tambah Data Penghuni Berhasil');
+        }
+        
+        
+        
+        
+        public function edit(Request $request, Penghuni $penghuni)
     {
         return view("dashboard.penghuni.edit", compact("penghuni"));
     }
@@ -120,9 +91,9 @@ class PenghuniController extends Controller
         ];
 
         $alertError = [
-            Alert::error('Proses Tambah Data Gagal', 'Data Penghuni Gagal Ditambahkan, Mohon Cek Kembali Data Yang Wajib Diisi !!!')
+            Alert::error('Proses Edit Data Gagal', 'Data Penghuni Gagal Diedit, Mohon Cek Kembali Data Yang Wajib Diisi !!!')
         ];
-        $validasi = $request->validate([
+        $request->validate([
             "nama_penghuni" => "required|min:5|max:100",
             "agama_penghuni" => [
                 "required",
@@ -135,53 +106,23 @@ class PenghuniController extends Controller
             ],
             "status_penghuni" => [
                 "required",
-                Rule::in(["Kawin", "Belum Kawin"])
+                Rule::in(["Pegawai Swasta", "Karyawan Pabrik", "Guru", "Ojek Online", "Lain Sebagainya"])
             ],
-            "foto_ktp" => "nullable",
-            "foto_surat_nikah" => "required_if:status_penghuni,Kawin",
-            "foto_kk" => "required_if:status_penghuni,Kawin"
+            "foto_ktp" => "required"
         ], $messages, $alertError);
 
-        DB::transaction(function () use ($request) {
-            $penghuni = Penghuni::create($request->except(["foto_ktp", "foto_surat_nikah", "foto_kk"]));
-
             // Upload File
-            if ($request->hasFile("foto_ktp")) {
-                $fotoKtp = $request->file("foto_ktp")->getClientOriginalName();
-
-                $request->file("foto_ktp")->storeAs(
-                    "assets/upload/penghuni/foto_ktp/",
-                    $fotoKtp,
-                    "public"
-                );
-
-                $penghuni->images()->create(["image_name" => $fotoKtp, "type" => "ktp"]);
-            }
-
-            if ($request->hasFile("foto_surat_nikah")) {
-                $fotoSuratNikah = $request->file("foto_surat_nikah")->getClientOriginalName();
-                $request->file("foto_surat_nikah")->storeAs(
-                    "assets/upload/penghuni/foto_surat_nikah/",
-                    $fotoSuratNikah,
-                    "public"
-                );
-
-                $penghuni->images()->create(["image_name" => $fotoSuratNikah, "type" => "surat_nikah"]);
-            }
-
-            if ($request->hasFile("foto_kk")) {
-                $fotoKK = $request->file("foto_kk")->getClientOriginalName();
-                $request->file("foto_kk")->storeAs(
-                    "assets/upload/penghuni/foto_kk/",
-                    $fotoKK,
-                    "public"
-                );
-                $penghuni->images()->create(["image_name" => $fotoKK, "type" => "kk"]);
-            }
-        });
-
-        return redirect()->route("dashboard.penghuni.index")->with("status", "Data Penghuni Berhasil di Tambahkan!");
-    }
+                if($request->hasFile("foto_ktp")) {
+                    $fotoKtp = $request->file("foto_ktp");
+                    $fotoKtp->move(public_path('/assets/upload/identitas_penghuni/foto_ktp'), $fotoKtp->getClientOriginalName());
+                    $penghuni->update(["foto_ktp" => $fotoKtp->getClientOriginalName()]);
+                }
+                    //jika tidak ada file foto, ya sudah update saja semua
+                    $penghuni->update($request->except("foto_ktp"));
+                    Alert::success('Proses Edit Data Berhasil', 'Berhasil Edit Data Penghuni');     
+                    return redirect()->route("dashboard.penghuni.index");
+                }
+    
 
 
     public function show(Request $request, Penghuni $penghuni)
@@ -191,12 +132,7 @@ class PenghuniController extends Controller
 
     public function destroy(Penghuni $penghuni)
     {
-        if ($penghuni->images()->count() > 0) {
-            $penghuni->images()->delete();
-        }
-
         $penghuni->delete();
-
         Alert::success('Proses Hapus Data Berhasil', 'Data Penghuni Berhasil DiHapus');
         return redirect()->route('dashboard.penghuni.index')->with('status', 'Data Penghuni Berhasil Di Hapus!');
     }

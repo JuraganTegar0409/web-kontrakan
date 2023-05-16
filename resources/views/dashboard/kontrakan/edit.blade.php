@@ -2,7 +2,7 @@
 @extends('layout.main')
 
 <!-- ini adalah title dari halaman Tambah Kontrakan -->
-@section('title', 'Tambah Data Kontrakan')
+@section('title', 'Edit Data Kontrakan')
 @section('header')
     @include("includes.header", [
     "icon" => "fas fa-hotel",
@@ -20,14 +20,18 @@
     ]
     ])
 @endsection
-<!-- ini adalah isi konten dari halaman Tambah Kontrakan -->
+<!-- ini adalah isi konten dari halaman Edit Kontrakan -->
 @section('container')
     <div class="container-fluid mt--6">
         <div class="row">
-            <div class="col-lg-8 mx-auto">
+            <div class="wrapper">
+            @include("sweetalert::alert")
+            </div>
+   
+        <div class="col-lg-8 mx-auto">
                 <div class="card mt-4">
                     <div class="card-body bg-white">
-                        <h2 class="text-center">Edit Kontrakan</h2>
+                        <h2 class="text-center">Edit Kontrakan 20 JANUARI</h2>
                         <form method="POST" action="{{ route('dashboard.kontrakan.update', $kontrakan->id) }}"
                             enctype="multipart/form-data">
                             @method("PUT")
@@ -85,9 +89,9 @@
                             </div>
                             <div class="form-group">
                                 <div class="row px-3">
-                                    <label for="fotoKontrakan">Foto Kontrakan :</label>
+                                    <label for="fotoKontrakan">Foto Kontrakan :  </label>
                                     <div class="col-sm-12 px-0 text-center">
-                                        <img src="{{ Storage::url('assets/upload/kontrakan/' . $kontrakan->foto_kontrakan) }}"
+                                        <img src="/assets/upload/foto_kontrakan/{{$kontrakan->foto_kontrakan}}"
                                             class="img-thumbnail img-preview" width="300" height="300">
                                         <label class="mt-2 d-block" for="fotoKontrakan" id="labelFotoKontrakan">
                                             <h3>{{ $kontrakan->foto_kontrakan }}</h3>

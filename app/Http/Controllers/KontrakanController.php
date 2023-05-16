@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Kontrakan; 
+use App\Models\Kontrakan; 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Alert;
@@ -66,10 +66,7 @@ class KontrakanController extends Controller
         $filename;
         if($request->hasFile("foto_kontrakan")) {
             $filename = $request->file("foto_kontrakan")->getClientOriginalName();
-            $path = $request->file("foto_kontrakan")->storeAs("assets/upload/kontrakan",
-                    $filename,
-                    "public"
-            );
+            $request->foto_kontrakan->move(public_path('/assets/upload/foto_kontrakan'), $filename);
         }
 
         Kontrakan::create($request->except("foto_kontrakan") + ["foto_kontrakan" => $filename]); 
@@ -108,7 +105,7 @@ class KontrakanController extends Controller
         ];
 
         $request->validate([
-            'nama_kontrakan' => 'required|min:5|max:20',
+            'nama_kontrakan' => 'required|min:5',
             'tipe_kontrakan' => 'required|min:1', 
             'kapasitas_kontrakan' => 'required', 
             'harga_kontrakan' => 'required', 
@@ -117,13 +114,12 @@ class KontrakanController extends Controller
             'alamat_kontrakan' => 'required|max:200'
         ], $messages, $alertError);
 
+
+        
         //cek apakah ada file foto kontrakan, kalau ada maka upload dan update fotonya di db
         if ($request->hasFile("foto_kontrakan")) {
             $file = $request->file("foto_kontrakan");
-            $file->storeAs("assets/upload/kontrakan", 
-                $file->getClientOriginalName(), 
-                "public"
-            );
+            $file->move(public_path('/assets/upload/foto_kontrakan'), $file->getClientOriginalName()); 
             $kontrakan->update(["foto_kontrakan" => $file->getClientOriginalName()]);
         }
 

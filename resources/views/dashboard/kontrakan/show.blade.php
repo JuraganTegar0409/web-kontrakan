@@ -75,7 +75,7 @@
                                  <div class="col-md-12">
                                    <div class="form-group"> <label for="form_name">Foto Kontrakan :    {{ $kontrakan->foto_kontrakan }} </label>
                                    <div class="form-group">
-                                    <img src="{{ asset('/storage/assets/upload/kontrakan/' . $kontrakan->foto_kontrakan) }}" alt="" width="325px" height="200px" style="vertical-align: middle; margin-left:50px;  ">  
+                                    <img src= "/assets/upload/foto_kontrakan/{{$kontrakan->foto_kontrakan}}" alt="" width="325px" height="200px" style="vertical-align: middle; margin-left:50px;  ">  
                                    </div>
                                   </div>  
                                 </div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,4 +16,14 @@ class Kontrakan extends Model
         "status_kontrakan",
         "alamat_kontrakan"
     ]; 
+
+    public function transaction()
+    {
+        return $this->hasMany(Transaksi::class);
+    }
+    public function logs()
+    {
+        return $this->hasMany(ActivityLog::class);
+    }
+
 }

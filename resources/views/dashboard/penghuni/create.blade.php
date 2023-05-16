@@ -1,7 +1,7 @@
-<!-- ini adalah konten dari halaman Tambah Kontrakan -->
+<!-- ini adalah konten dari halaman Tambah Penghuni -->
 @extends('layout/main')
 
-<!-- ini adalah title dari halaman Tambah Kontrakan -->
+<!-- ini adalah title dari halaman Tambah Penghuni -->
 @section('title', 'Tambah Data Penghuni')
 @section('header')
     @include("includes.header", [
@@ -20,7 +20,7 @@
     ]
     ])
 @endsection
-<!-- ini adalah isi konten dari halaman Tambah Kontrakan -->
+<!-- ini adalah isi konten dari halaman Tambah Penghuni -->
 @section('container')
     <div class="container-fluid mt--6">
         <div class="row">
@@ -115,14 +115,17 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="statusPerkawinan">
-                                            Status Perkawinan <span class="text-red">*</span>:
+                                        <label for="status_penghuni">
+                                            Status Pekerjaan Penghuni <span class="text-red">*</span>:
                                         </label>
                                         <select name="status_penghuni"
-                                            class="form-control @error('status_penghuni') is-invalid @enderror" id="statusPerkawinan">
-                                            <option value="">Pilih Status Perkawinan</option>
-                                            <option value="Kawin">Kawin</option>
-                                            <option value="Belum Kawin">Belum Kawin</option>
+                                            class="form-control @error('status_penghuni') is-invalid @enderror" id="status_penghuni">
+                                            <option value="">Pilih Status Pekerjaan</option>
+                                            <option value="Pegawai Swasta">Pegawai Swasta</option>
+                                            <option value="Karyawan Pabrik">Karyawan Pabrik</option>
+                                            <option value="Guru">Guru</option>
+                                            <option value="Ojek Online">Ojek Online</option>
+                                            <option value="Lain Sebagainya">Lain Sebagainya</option>
                                         </select>
                                         @error('status_penghuni')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -145,61 +148,9 @@
                                             <div class="custom-file">
                                                 <input type="file"
                                                     class="custom-file-input @error('foto_ktp') is-invalid @enderror"
-                                                    id="fotoKTP" name="foto_ktp" value="">
+                                                    id="fotoKTP" name="foto_ktp">
                                                 <label class="custom-file-label" for="customFileLang">Select file</label>
                                                 @error('foto_ktp')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <div class="form-group row">
-                                        <label for="fotoSuratNikah" class="col-sm-12">
-                                            Foto Surat Nikah
-                                            <span class="text-red">*(Wajib diisi bila sudah menikah)</span>:
-                                        </label>
-                                        <div class="col-sm-10">
-                                            <img src="" class="img-thumbnail d-none" id="previewSuratNikahImg">
-                                            <label class="custom-file d-none" for="fotoSuratNikah"
-                                                id="previewSuratNikahLabel">
-                                            </label>
-                                        </div>
-
-                                        <div class="col-sm-12">
-                                            <div class="custom-file">
-                                                <input type="file"
-                                                    class="custom-file-input @error('foto_surat_nikah') is-invalid @enderror"
-                                                    id="fotoSuratNikah" name="foto_surat_nikah" value="">
-                                                <label class="custom-file-label" for="customFileLang">Select file</label>
-                                                @error('foto_surat_nikah')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <div class="form-group row">
-                                        <label for="fotoKK" class="col-sm-12">
-                                            Foto KK
-                                            <span class="text-red">*</span>:
-                                        </label>
-                                        <div class="col-sm-10">
-                                            <img src="" class="img-thumbnail d-none" id="previewKKImg">
-                                            <label class="custom-file d-none" for="fotoKK" id="previewKKLabel"></label>
-                                        </div>
-
-                                        <div class="col-sm-12">
-                                            <div class="custom-file">
-                                                <input type="file"
-                                                    class="custom-file-input @error('foto_kk') is-invalid @enderror"
-                                                    id="fotoKK" name="foto_kk" value="">
-                                                <label class="custom-file-label" for="customFileLang">Select file</label>
-                                                @error('foto_kk')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>

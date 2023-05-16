@@ -3,28 +3,16 @@
 
 <!-- ini adalah title dari halaman Tambah Kontrakan -->
 @section('title', 'Tambah Data Kontrakan')
-@section('header')
-    @include("includes.header", [
-    "icon" => "fas fa-hotel",
-    "breadcrumbs" => [
-        [
-        "name" => "List Kontrakan",
-        "is_active" => "",
-        "link" => "/dashboard/kontrakan"
-        ],
-        [
-        "name" => "Tambah Kontrakan",
-        "is_active" => "active",
-        "link" => ""
-        ]
-    ]
-    ])
-@endsection
+ 
 <!-- ini adalah isi konten dari halaman Tambah Kontrakan -->
 @section('container')
-    <div class="container-fluid mt--6">
+    <div class="container-fluid mt--10">
         <div class="row">
-            <div class="col-lg-8 mx-auto">
+        <div class="wrapper">
+         @include("sweetalert::alert")
+         </div>
+    
+        <div class="col-lg-8 mx-auto">
                 <div class="card mt-4">
                     <div class="card-body bg-white">
                         <h2 class="text-center">Tambah Kontrakan</h2>
@@ -76,7 +64,7 @@
                             <div class="form-group">
                                 <label for="fotoKontrakan">Foto Kontrakan</label>
                                 <input type="file"
-                                    class="form-control form-control-sm @error('harga_kontrakan') is-invalid @enderror"
+                                    class="form-control form-control-sm @error('foto_kontrakan') is-invalid @enderror"
                                     id="fotoKontrakan" lang="en" name="foto_kontrakan">
                                 @error('foto_kontrakan')
                                     <div class="invalid-feedback">{{ $message }}</div>

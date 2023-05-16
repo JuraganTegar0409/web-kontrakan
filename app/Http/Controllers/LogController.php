@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// use App\Paket;
-// use Illuminate\Support\Facades\DB;
+use App\Models\ActivityLog; 
+use App\Models\Transaksi; 
+use App\Models\Penghuni; 
+use App\Models\Kontrakan;  
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
+use Alert;
 
 class LogController extends Controller
 {
@@ -14,23 +19,18 @@ class LogController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+    {  
+        $log = ActivityLog::with('transactions','occupants', 'rents')->paginate(10);
+        // $transactions = Transaksi::all();
+        return view('dashboard.log.index', compact("log"));
+    } 
+ 
+
+    public function show(ActivityLog $activitylog)
     {
-
-        // $paket = Paket::paginate(10);
-
-        return view('dashboard.log.index');
+            // dd($activitylog)
+        return view("dashboard.log.show", compact("activitylog"));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('dashboard.log.create');
-    }
-
-     
+ 
      
 }
